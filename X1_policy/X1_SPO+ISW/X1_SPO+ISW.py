@@ -204,7 +204,6 @@ def Double_robust(X_train_False,X_train, Y_transpose_Z_observed_train, Y_transpo
     Linear_Wrong_model_estimate_2=np.dot(np.transpose(X_2_False),W_wrong_linear_matrix)  
     Linear_Wrong_model_estimate_2=np.transpose(Linear_Wrong_model_estimate_2)     
     
-    #Sigma matrix,这里先计算理想矩阵
     Sigma_ideal_matrix_1=np.zeros((d,d))
     for i in range(50):
         if i <=24:
@@ -246,7 +245,6 @@ def Double_robust(X_train_False,X_train, Y_transpose_Z_observed_train, Y_transpo
     Modeified_ideal_Sigma_matrix_2=np.dot(np.dot(Ideal_U,np.diag(Ideal_Sigma)),Ideal_V)
     Modeified_ideal_Sigma_matrix_2_inverse=np.linalg.pinv(Modeified_ideal_Sigma_matrix_2)
     
-    #再计算采样矩阵
     Sigma_sample_matrix_1=np.zeros((d,d))
     Sigma_sample_matrix_2=np.zeros((d,d))
     num_1=0
@@ -320,7 +318,7 @@ def Double_robust(X_train_False,X_train, Y_transpose_Z_observed_train, Y_transpo
     clf = tree.DecisionTreeClassifier(max_depth=3,random_state=18)
     
     (p,m)=X_False.shape
-    #减去常数项
+
     p=p-1
     X_clf=np.zeros((m,p))
     Y_clf=np.zeros((m,1))
@@ -334,8 +332,6 @@ def Double_robust(X_train_False,X_train, Y_transpose_Z_observed_train, Y_transpo
     a_1=IPW_total_estimator.predict_proba(X_clf_2)
     a_1=np.transpose(a_1)
     a_2=IPW_total_estimator.predict(X_clf_2)
-    
-    #在这里计算每一个数据点的双鲁棒项中的IPW那一项
     
     unique, counts = np.unique(Z_idxs, return_counts=True)
     d_list=[]
@@ -583,7 +579,6 @@ for m in range(70):
          num=num+1
   num_list[m]=num
 
-#让我们把所有测试集中的最优解从feasible_set里面剔除出来
 best_list=[63,26,17,1,53,14,38,37,5,50,44,42,68,64,62,33,43,25,12,18]
 Fake_feasible_vector=[]
 for j in range(70):
