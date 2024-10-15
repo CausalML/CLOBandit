@@ -30,7 +30,7 @@ def generate_data_interactive(noise_low,noise_high,B_true, n, p, v, polykernel_d
     
     for i in range(n):
         idxs = np.random.randint(0, 70, size=1)
-        #这里我就把70个可行解的方案在feasible list中的索引作为标签
+
         temp_Y_transpose_Z_observed=np.dot(c_observed[:,i],feasible_vector[idxs[0]])
         temp_Y_transpose_Z_expected=np.dot(c_expected[:,i],feasible_vector[idxs[0]])
         Y_transpose_Z_observed[0,i]=temp_Y_transpose_Z_observed
