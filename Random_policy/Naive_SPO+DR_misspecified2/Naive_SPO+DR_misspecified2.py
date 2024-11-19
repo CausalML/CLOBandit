@@ -230,13 +230,6 @@ for i in range(len(n_train_seq)):
             data_train[k].append(np.hstack((data_train_1_used[k][i],data_train_2_used[k][i])))
             data_holdout[k].append(np.hstack((data_holdout_1_used[k][i],data_holdout_2_used[k][i])))
     
-        
-    #在这里使用Nuisacne Model，首先还得注意每个runs之间是独立的,但在每个runs下我训练的回归模型是把训练集和验证集放到一起训练的
-    # for k in range(runs):
-    #     for i in range(len(data_train[k])):
-    #         data_total[k].append(np.hstack((data_train[k][i],data_holdout[k][i])))
-    
-    #将数据分成按照所选择的70个类别
     data_train_stratified=[[[] for l in range(70)] for i in range(runs)]
     for k in range(runs):
       unique, counts = np.unique(data_train[k][7], return_counts=True)
@@ -257,7 +250,6 @@ for i in range(len(n_train_seq)):
                    num=num+1
             data_train_stratified[k][m].append(temp_array)
             
-    #数据整理好之后，开始每个决策下训练回归模型计算给定X之后的总cost
     for k in range(runs):
         temp_array_false=np.zeros((70,n_train_true))
         temp_array_true=np.zeros((70,n_train_true))
